@@ -1,4 +1,31 @@
-let ingreso;
+
+const btnGryffindor = document.getElementById("gridRadios1");
+const btnHufflepuff = document.getElementById("gridRadios2");
+const btnRavenclaw = document.getElementById("gridRadios3");
+const btnSlytherin = document.getElementById("gridRadios4");
+const btnProbarSuerte = document.getElementById("gridRadios5");
+const btnEnviar = document.getElementById("enviar");
+
+
+
+
+function enviar (nombre){
+  alert(`Hola, ${nombre}`);
+    
+}
+
+btnEnviar.addEventListener("click"), ()=>{
+  let nombre = document.getElementById("nombreIngresado").value;
+  enviar(nombre);
+}
+
+
+
+
+
+
+
+/*let ingreso;
 let casas;
 let question1;
 let question2;
@@ -36,29 +63,29 @@ do {
               a: 10,
               b: 0,
               c: 0
-          }
-          const options2={
-            a: 0,
-            b: 10,
-            c: 0
-          }
-          const options3={
-            a: 10,
-            b: 0,
-            c: 0
-          }
-          
-          function questions (array,fn){
-            for (const element of array){
-              fn(element);
+            }
+            const options2={
+              a: 0,
+              b: 10,
+              c: 0
+            }
+            const options3={
+              a: 10,
+              b: 0,
+              c: 0
             }
           
-          }
-          function suma (num){
+            function questions (array,fn){
+              for (const element of array){
+                fn(element);
+              }
+          
+            }
+            function suma (num){
               return num + num + num;
-          }
+            }
 
-          const results = [options1,options2,options3];
+          const results = [];
 
           alert ("Felicitaciones"+ questions(results,suma) + " puntos en total para Gryffindor!");
 
@@ -294,7 +321,7 @@ do {
 
 function mostrarMensaje(casa){
     alert ("Bienvenid@" + " " + casa + "!" + "\nTendrás la oportunidad de probar cuánto sabes sobre tu mundo mágico!"); 
-}
+}*/
 
 /*
 function question1 (userAnswer);
