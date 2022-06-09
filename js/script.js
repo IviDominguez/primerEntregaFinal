@@ -1,23 +1,84 @@
 
-const btnGryffindor = document.getElementById("gridRadios1");
-const btnHufflepuff = document.getElementById("gridRadios2");
-const btnRavenclaw = document.getElementById("gridRadios3");
-const btnSlytherin = document.getElementById("gridRadios4");
-const btnProbarSuerte = document.getElementById("gridRadios5");
-const btnEnviar = document.getElementById("enviar");
+//let eleCasas = [casa1,casa2,casa3,casa4,casa5];
+
+const nombre = document.getElementById("nombreIngresado");
+const eleccion = [casa1,casa2,casa3,casa4,casa5];
+/*const eleccion = [casa1,casa2,casa3,casa4,casa5];
+const gryffindor = document.getElementById("radios1");
+const hufflepuff = document.getElementById("radios2");
+const ravenclaw = document.getElementById("radios3");
+const slytherin = document.getElementById("radios4");
+const mundoMuggle = document.getElementById("radios5");*/
+const btnIngresar = document.getElementById("ingresar");
+const saludoPersonalizado = document.getElementById("saludo");
+const cambios = document.querySelectorAll(".cambios");
+const ocultar = document.querySelector("formCasas");
+
+
+function guardarDatos(storage){
+  let user = nombre.value;
+  let casa = eleccion.value;
+  
+  const usuario = {
+    "user" : user,
+    "casa" : casa
+  }
+
+  storage === "localStorage" && localStorage.setItem("usuario", JSON.stringify(usuario));
+}
+
+function recuperarUsuario(storage){
+  let userInStorage = JSON.parse(storage.getItem("usuario"));
+  return userInStorage;
+}
+
+function saludar(usuario){
+  saludoPersonalizado.innerHTML = `Hola, <span>${usuario.user}</span>!
+  Esperamos que puedas probar tus conocimientos
+  y sumar puntos para <span>${usuario.casa}. Comencemos!`
+}
+
+function guardado(usuario){
+  if(usuario){
+    saludoPersonalizado(usuario);
+    mostrarPreguntas(cambios, "disNon");
+  }
+}
+
+function mostrarPreguntas(array, clase){
+  array.forEach(element => {
+    element.classList.toggle(clase);
+  });
+}
+
+
+btnIngresar.addEventListener("click", (e)=>{
+  e.preventDefault();
+  if(!nombre.value||!eleccion.value){
+    alert("Debes ingresar tu nombre y elegir una casa!");
+  }else{
+    guardarDatos("localStorage");
+    saludoPersonalizado(recuperarUsuario(localStorage));
+  }
+
+  formCasas.hide();
+  mostrarPreguntas(cambios, "disNon");
+});
 
 
 
 
-function enviar (nombre){
+
+/*function ingresar (nombre){
   alert(`Hola, ${nombre}`);
     
 }
 
-btnEnviar.addEventListener("click"), ()=>{
-  let nombre = document.getElementById("nombreIngresado").value;
-  enviar(nombre);
-}
+btnIngresar.addEventListener("click", (e)=>{
+  e.preventDefault();
+  const nombre = document.getElementById("nombreIngresado").value;
+  ingresar(nombre);
+});*/
 
 
 
@@ -358,91 +419,3 @@ function suma (num){
 
 
 
-//for (const i=0;i=userAnswer;i++){}
-
-
-
-
-
-//preguntas
-
-
-/*function quiz (questions,options,results){
-  function showQuestions (questions,options){
-    const output =[];
-    const answers=[];
-    const questions=[
-      {
-        question1: "Qué edad tenia Harry Potter cuando recibió su primer carta de Howarts?",
-        answers: {
-          a: "10",
-          b: "11",
-          c: "12"
-        },
-        correctAnswer: "b"
-      }
-    ]
-    alert (prompt("Qué edad tenia Harry Potter cuando recibió su primer carta de Howarts? \n10 \n11 \n12"));
-    for(const i=0;i<questions.length;i++){
-      answers = [];
-      for(letter in questions[i].answers){
-        answers.push(questions[i].answer[letter]);
-      }
-      output.push(questions[i].question1 + answers.join);
-    }
-    alert(options.showQuestions = output.join);
-    }
-
-    function showResults (questions,options,results){
-
-      const userAnswer = "";
-      const numCorrect = 0;
-      for(const i=0;i<questions.length;i++){
-        if (userAnswer===questions[i].correctAnswer){
-          numCorrect++;
-          alert ("correcto!");
-        }
-        else {alert("Incorrecto!");
-        }
-      }
-      
-      alert (results = numCorrect + 'out of' + questions.length);
-    }
-    function showQuestions (questions,options);
-    function showResults (questions,options,results)
-
-      
-}*/
-
-
-
-
-
-
-/*switch (buyerOpction) {
-    case "Cerveza Negra": 
-      mostrarCompra(buyerOpction); 
-      if (opction = "Cerveza Negra") {
-        opction2 = parseInt(prompt("Elige cuantas quieres!"));
-        mostrarTotal(sumar(opction2,opction));
-      }else if (isNaN(opction2)){
-        alert("Ingresá un número");
-      }
-      continue;
-      
-    case "Cerveza Rubia":
-      mostrarCompra(buyerOpction);
-      if (opction = "Cerveza Rubia"){
-        opction2 = parseInt(prompt("Elige cuantas quieres!"));
-        mostrarTotal(sumar(opction2,opction));  
-      }else if (isNaN(opction2)){
-        alert("Ingresá un número");
-      }
-      continue;
-
-    case "Finalizar compra":
-      alert("Muchas Gracias por Comprar :D");
-      continue;
-    default:
-      alert("Ingrese las opciones RECOMENDADAS");
-      continue;*/
