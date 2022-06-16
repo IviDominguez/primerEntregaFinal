@@ -1,69 +1,105 @@
-
-//let eleCasas = [casa1,casa2,casa3,casa4,casa5];
-
-const nombre = document.getElementById("nombreIngresado");
-const eleccion = [casa1,casa2,casa3,casa4,casa5];
-/*const eleccion = [casa1,casa2,casa3,casa4,casa5];
-const gryffindor = document.getElementById("radios1");
-const hufflepuff = document.getElementById("radios2");
-const ravenclaw = document.getElementById("radios3");
-const slytherin = document.getElementById("radios4");
-const mundoMuggle = document.getElementById("radios5");*/
-const btnIngresar = document.getElementById("ingresar");
+const nombre = document.getElementById("autoSizingInput");
 const saludoPersonalizado = document.getElementById("saludo");
 const cambios = document.querySelectorAll(".cambios");
 const ocultar = document.querySelector("formCasas");
+let check = document.getElementsByClassName("check");
 
-
-function guardarDatos(storage){
-  let user = nombre.value;
-  let casa = eleccion.value;
-  
-  const usuario = {
-    "user" : user,
-    "casa" : casa
-  }
-
-  storage === "localStorage" && localStorage.setItem("usuario", JSON.stringify(usuario));
-}
-
-function recuperarUsuario(storage){
+function recuperarUsuario(storage) {
   let userInStorage = JSON.parse(storage.getItem("usuario"));
   return userInStorage;
 }
 
-function saludar(usuario){
+/*function saludar(usuario) {
   saludoPersonalizado.innerHTML = `Hola, <span>${usuario.user}</span>!
   Esperamos que puedas probar tus conocimientos
   y sumar puntos para <span>${usuario.casa}. Comencemos!`
-}
+}*/
 
-function guardado(usuario){
-  if(usuario){
-    saludoPersonalizado(usuario);
+function guardado(usuario) {
+  if (usuario) {
+    //saludoPersonalizado(usuario);
     mostrarPreguntas(cambios, "disNon");
   }
 }
 
-function mostrarPreguntas(array, clase){
-  array.forEach(element => {
+function mostrarPreguntas(array, clase) {
+  array.forEach((element) => {
     element.classList.toggle(clase);
   });
 }
 
+/* ------------------------------------ CORRECCIÓN ------------------------------------------*/
 
-btnIngresar.addEventListener("click", (e)=>{
-  e.preventDefault();
-  if(!nombre.value||!eleccion.value){
-    alert("Debes ingresar tu nombre y elegir una casa!");
-  }else{
-    guardarDatos("localStorage");
-    saludoPersonalizado(recuperarUsuario(localStorage));
+ //LLAMO A TODOS LOS BOTONES QUE CONTENGA LA MISMA CLASE EN EL HTML (AGREGUE la clase en el html CHECK)
+
+for (const checkbox of check) {
+  //RECORRO TODOS LOS BOTONES CON LA CLASE "CHECK"
+  checkbox.onclick = validarDatos; //A LOS BOTONES QUE enconte con la clase "check", le agrego la funcion validarDatos
+}
+
+//FUNCION PARA VALIDAR DATOS
+function validarDatos(e) {
+  btn = e.target;
+
+  if (nombre.value == "") {
+    //VALIDO que se ingrese algun texto al input
+    alert("Debes ingresar tu nombre y elige una casa para enviar información");
+  } else {
+    
+    //SACAR INFO DE LOS CHECKBOX
+    casaSelect = btn.value; //MUESTRA EL CHECKBOX SELECCIONADO
+
+    let user = nombre.value; //ADJUNTO VALOR A LAS VARIABLES
+    let casa = casaSelect; //ADJUNTO VALOR A LAS VARIABLES
+
+    //MANDAR INFO AL LOCALSTORAGE
+    const usuario = {
+      user: user, //CREO OBJETO
+      casa: casa,
+    };
+
+    localStorage.setItem("usuario", JSON.stringify(usuario)); //Envio al LOCALSTORAGE
+
+
+    // saludoPersonalizado(recuperarUsuario(localStorage));
+    //mostrarPreguntas(cambios, "disNon");
   }
+  swal.fire({
+    titulo:"Hola, " + usuario.user,
+    text:"Esperamos que puedas probar tus conocimientos y sumar puntos para " + usuario.casa,
+    confirmButtonText: "Comencemos!"
+  }).then((result)=>{
+    if(result.isConfirmed){
+      mostrarPreguntas(cambios, "disNon");
+    }
+  })
+}
 
-  formCasas.hide();
-  mostrarPreguntas(cambios, "disNon");
-});
+/*swal.fire({
+  titulo:"Hola, " + usuario.user,
+  text:"Esperamos que puedas probar tus conocimientos y sumar puntos para " + usuario.casa,
+  confirmButtonText: "Comencemos!"
+}).then((result)=>{
+  if(result.isConfirmed){
+    mostrarPreguntas(cambios, "disNon");
+  }
+})*/
+
+
+
+
+
+
+
+
+
+/*function saludar(usuario) {
+  saludoPersonalizado.innerHTML = `Hola, <span>${usuario.user}</span>!
+  Esperamos que puedas probar tus conocimientos
+  y sumar puntos para <span>${usuario.casa}. Comencemos!`;
+}*/
+
+
 
 
 
