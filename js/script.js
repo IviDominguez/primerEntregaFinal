@@ -1,5 +1,4 @@
 const nombre = document.getElementById("autoSizingInput");
-const saludoPersonalizado = document.getElementById("saludo");
 const cambios = document.querySelectorAll(".cambios");
 const ocultar = document.querySelector("formCasas");
 let check = document.getElementsByClassName("check");
@@ -9,15 +8,8 @@ function recuperarUsuario(storage) {
   return userInStorage;
 }
 
-/*function saludar(usuario) {
-  saludoPersonalizado.innerHTML = `Hola, <span>${usuario.user}</span>!
-  Esperamos que puedas probar tus conocimientos
-  y sumar puntos para <span>${usuario.casa}. Comencemos!`
-}*/
-
 function guardado(usuario) {
   if (usuario) {
-    //saludoPersonalizado(usuario);
     mostrarPreguntas(cambios, "disNon");
   }
 }
@@ -28,13 +20,8 @@ function mostrarPreguntas(array, clase) {
   });
 }
 
-/* ------------------------------------ CORRECCIÓN ------------------------------------------*/
-
- //LLAMO A TODOS LOS BOTONES QUE CONTENGA LA MISMA CLASE EN EL HTML (AGREGUE la clase en el html CHECK)
-
 for (const checkbox of check) {
-  //RECORRO TODOS LOS BOTONES CON LA CLASE "CHECK"
-  checkbox.onclick = validarDatos; //A LOS BOTONES QUE enconte con la clase "check", le agrego la funcion validarDatos
+  checkbox.onclick = validarDatos; 
 }
 
 //FUNCION PARA VALIDAR DATOS
@@ -42,11 +29,8 @@ function validarDatos(e) {
   btn = e.target;
 
   if (nombre.value == "") {
-    //VALIDO que se ingrese algun texto al input
     alert("Debes ingresar tu nombre y elige una casa para enviar información");
   } else {
-    
-    //SACAR INFO DE LOS CHECKBOX
     casaSelect = btn.value; //MUESTRA EL CHECKBOX SELECCIONADO
 
     let user = nombre.value; //ADJUNTO VALOR A LAS VARIABLES
@@ -60,13 +44,10 @@ function validarDatos(e) {
 
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Envio al LOCALSTORAGE
 
-
-    // saludoPersonalizado(recuperarUsuario(localStorage));
-    //mostrarPreguntas(cambios, "disNon");
   }
   swal.fire({
-    titulo:"Hola, " + usuario.user,
-    text:"Esperamos que puedas probar tus conocimientos y sumar puntos para " + usuario.casa,
+    title:"Hola, " + nombre.value,
+    text:"Esperamos que puedas probar tus conocimientos y sumar puntos para " + casaSelect,
     confirmButtonText: "Comencemos!"
   }).then((result)=>{
     if(result.isConfirmed){
@@ -75,15 +56,7 @@ function validarDatos(e) {
   })
 }
 
-/*swal.fire({
-  titulo:"Hola, " + usuario.user,
-  text:"Esperamos que puedas probar tus conocimientos y sumar puntos para " + usuario.casa,
-  confirmButtonText: "Comencemos!"
-}).then((result)=>{
-  if(result.isConfirmed){
-    mostrarPreguntas(cambios, "disNon");
-  }
-})*/
+//Ahora las preguntas
 
 
 
@@ -93,11 +66,8 @@ function validarDatos(e) {
 
 
 
-/*function saludar(usuario) {
-  saludoPersonalizado.innerHTML = `Hola, <span>${usuario.user}</span>!
-  Esperamos que puedas probar tus conocimientos
-  y sumar puntos para <span>${usuario.casa}. Comencemos!`;
-}*/
+
+
 
 
 
